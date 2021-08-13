@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/ohditor/static/css/main.a617e044.chunk.css",
+    "main.js": "/ohditor/static/js/main.40df84cc.chunk.js",
+    "main.js.map": "/ohditor/static/js/main.40df84cc.chunk.js.map",
+    "runtime-main.js": "/ohditor/static/js/runtime-main.ca49b65d.js",
+    "runtime-main.js.map": "/ohditor/static/js/runtime-main.ca49b65d.js.map",
+    "static/js/2.c0167dcd.chunk.js": "/ohditor/static/js/2.c0167dcd.chunk.js",
+    "static/js/2.c0167dcd.chunk.js.map": "/ohditor/static/js/2.c0167dcd.chunk.js.map",
+    "static/js/3.415d66aa.chunk.js": "/ohditor/static/js/3.415d66aa.chunk.js",
+    "static/js/3.415d66aa.chunk.js.map": "/ohditor/static/js/3.415d66aa.chunk.js.map",
+    "index.html": "/ohditor/index.html",
+    "service-worker.js": "/ohditor/service-worker.js",
+    "service-worker.js.map": "/ohditor/service-worker.js.map",
+    "static/css/main.a617e044.chunk.css.map": "/ohditor/static/css/main.a617e044.chunk.css.map",
+    "static/js/2.c0167dcd.chunk.js.LICENSE.txt": "/ohditor/static/js/2.c0167dcd.chunk.js.LICENSE.txt",
+    "static/media/logo.103b5fa1.svg": "/ohditor/static/media/logo.103b5fa1.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ca49b65d.js",
+    "static/js/2.c0167dcd.chunk.js",
+    "static/css/main.a617e044.chunk.css",
+    "static/js/main.40df84cc.chunk.js"
+  ]
+}
