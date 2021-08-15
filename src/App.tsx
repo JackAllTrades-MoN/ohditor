@@ -5,6 +5,11 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import { OutlineView } from './components/OutlineView';
 import { EditorMain } from './components/EditorMain';
+import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
 function App() {
   return (
@@ -20,5 +25,18 @@ function App() {
     </div>
   );
 }
+
+/*
+    <AppBar position="static">
+      <Toolbar>
+          <IconButton >
+              <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" component="div">
+              Ohditor
+          </Typography>
+          </Toolbar>
+      </AppBar>
+*/
 
 export default App;

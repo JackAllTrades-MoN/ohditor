@@ -6,6 +6,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Box from '@material-ui/core/Box';
+import AlignHorizontalLeftIcon from '@material-ui/icons/AlignHorizontalLeft';
 
 type Props = { }
 
@@ -24,13 +25,57 @@ type Node = {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        backgroundColor: '#282c34',
+        backgroundColor: 'transparent',
         color: 'white',
-        height: '100vh'
+//        height: '100vh',
+        '& .MuiAccordion-root': {
+            backgroundColor: 'transparent',
+            color: 'white',
+            boxShadow: 'none',
+            '& .MuiAccordionSummary-root': {
+                display: 'flex',
+                flexDirection: 'row-reverse',
+                paddingLeft: 0,
+                paddingRight: 0,
+                minHeight: '1em',
+                '& .MuiIconButton-root': {
+                    color: 'white',
+                    paddingTop: '0',
+                    paddingBottom: '0',
+                    paddingLeft: '2px',
+                    paddingRight: '2px',
+                    width: '35px',
+                },
+                '& .MuiAccordionSummary-content' :{
+                    marginTop: '0',
+                    marginBottom: '0',
+                    '& .MuiTypography-root': {
+                        textAlign: 'center',
+                    }
+                },
+            },
+            '& .MuiAccordionDetails-root': {
+                display: 'flex',
+                flexDirection: 'column',
+                marginLeft: '1.0em',
+                paddingTop: 0,
+                paddingLeft: 0,
+                paddingRight: 0,
+                borderLeft: 'thin solid white',
+                '& .MuiTypography-root': {
+                    textAlign: 'left',
+                }
+            },
+        }
     },
-    acDetails: {
+    leaf: {
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'row',
+        '& svg': {
+            width: '20px',
+            paddingRight: '2px',
+            paddingLeft: '0.4em',
+        }
     }
 }));
 
@@ -47,7 +92,7 @@ const TreeToAccordion = (node: Tree) => {
                     >
                         <Typography>{ node.label }</Typography>
                     </AccordionSummary>
-                    <AccordionDetails className={classes.acDetails}>
+                    <AccordionDetails>
                         { node.children.map(t => TreeToAccordion(t)) }
                     </AccordionDetails>
                 </Accordion>
@@ -55,7 +100,10 @@ const TreeToAccordion = (node: Tree) => {
         );
     } else if (node.kind === "leaf") {
         return (
-            <Typography>{ node.label }</Typography>
+            <Box className={ classes.leaf }>
+                <AlignHorizontalLeftIcon/>
+                <Typography>{ node.label }</Typography>
+            </Box>
         )
     } else {
         const _exhaustiveCheck: never = node;
