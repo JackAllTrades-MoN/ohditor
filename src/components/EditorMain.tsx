@@ -1,12 +1,8 @@
-import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Box from '@material-ui/core/Box';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import Link from '@material-ui/core/Link';
+import React, { useContext } from 'react';
+import { Breadcrumb, BreadcrumbItem } from 'carbon-components-react';
 import { LineNumberedTextArea } from './LineNumberedTextArea';
-import { useContext } from 'react';
-import { StoreContext } from '../store/store';
+import { Tree, StoreContext } from '../store/store';
+import { safeUnreachable } from '../error/developing';
 
 type Props = { }
 
@@ -16,27 +12,49 @@ export const EditorMain: React.FC<Props> = props => {
         store.dispatch({ type: 'EDITOR_UPDATE', value: e.target.value });
     }
     return (
-        <Box>
-            <EditorHeader></EditorHeader>
-            <LineNumberedTextArea
-                onChange={ updateTextArea } >
-                { store.state.editorContent }
-            </LineNumberedTextArea>
-        </Box>
+        <div className="bx--grid">
+            <div className="bx--grid-row">
+                <EditorHeader></EditorHeader>
+            </div>
+            <div className="bx--grid-row">
+                <LineNumberedTextArea
+                    onChange={ updateTextArea } >
+                    { store.state.editorContent }
+                </LineNumberedTextArea>
+            </div>
+        </div>
     );
 }
 
 type HeaderProps = { }
 
 const EditorHeader: React.FC<HeaderProps> = props => {
+    const store = useContext(StoreContext);
+    const path = pathTo(store.state.opened)(store.state.scenario?.tree);
     return (
-        <Breadcrumbs aria-label="breadcrumb">
-            <Link color="inherit" href="/">
-                Hoge
-            </Link>
-            <Link>
-                Fuga
-            </Link>
-        </Breadcrumbs>
+        <Breadcrumb noTrailingSlash>
+            <BreadcrumbItem href="/">{ path?.toString() || "/" }</BreadcrumbItem>
+            <BreadcrumbItem isCurrentPage href="/">Fuga</BreadcrumbItem>
+        </Breadcrumb>
     );
 }
+
+const pathTo : (targetId?: string) => (node?: Tree) => string[] | undefined =
+    targetId => node => {
+        if (targetId === undefined || node === undefined) {
+            return undefined;
+        }
+        if(node.kind === "node") {
+            const followingPath =
+                node.children
+                    .map(pathTo(targetId))
+                    .find(result => result !== undefined);
+            return followingPath?.concat([node.label]);
+        } else if (node.kind === "leaf") {
+            if (node.id === targetId) {
+                return [node.label]
+            }
+        } else {
+            safeUnreachable(node);
+        }
+    }

@@ -1,7 +1,11 @@
+body {
+  overscroll-behavior: none;
+}
+
 .App {
   text-align: center;
   background-color: #464a50;
-  height:110vh;
+  height:100vh;
 }
 
 .App-logo {

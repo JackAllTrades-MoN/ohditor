@@ -1,8 +1,6 @@
-import React from 'react';
-import { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Grid from '@material-ui/core/Grid';
 import { OutlineView } from './components/OutlineView';
 import { EditorMain } from './components/EditorMain';
 import { reducer, initialState, StoreContext, leaf, node } from './store/store';
@@ -28,7 +26,7 @@ function App() {
   return (
     <StoreContext.Provider value={{ state, dispatch }}>
       <div className="App">
-        <div className="bx--grid--full-width">
+        <div className="bx--grid bx--grid--full-width bx--grid--condensed">
           <div className="bx--row">
             <div className="bx--col-sm-1 bx--col-md-1">
               <OutlineView></OutlineView>
