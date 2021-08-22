@@ -12,7 +12,7 @@ type Props = { }
 
 export const EditorMain: React.FC<Props> = props => {
     const store = useContext(StoreContext);
-    const updateTextArea = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const updateTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         store.dispatch({ type: 'EDITOR_UPDATE', value: e.target.value });
     }
     return (

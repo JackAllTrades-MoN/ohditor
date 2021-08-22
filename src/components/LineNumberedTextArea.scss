@@ -1,0 +1,23 @@
+.line-numbered-text-area-root {
+    .line-numbered-text-area-row {
+        overflow: scroll;
+        height: 80vh;
+        width: 20vh;
+        background-color: rgb(37, 36, 36);
+        .bx--text-area {
+            width: 100%;
+            background-color: transparent;
+            color: white;
+            resize: none;
+            overflow: hidden;
+            border: none;
+        }
+        .bx--text-area:focus {
+            border: none;
+            outline: none;
+        }
+        .line-number {
+            text-align: right;
+        }
+    }
+}

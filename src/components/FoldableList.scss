@@ -1,0 +1,15 @@
+.foldable-list-root {
+    text-align: left;
+    color: white;
+    .fl-item {
+        .fl-text {
+            margin-top: 0.25em;
+            margin-bottom: 0.25em;
+        }
+        .fl-body {
+            margin-left: 0.5em;
+            padding-left: 0.5em;
+            border-left: thin solid white;
+        }
+    }
+}

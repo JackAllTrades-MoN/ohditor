@@ -1,9 +1,10 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
+import { TextArea } from 'carbon-components-react';
 
+import './LineNumberedTextArea.scss';
+
+/*
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -27,51 +28,48 @@ const useStyles = makeStyles((theme: Theme) =>
             textAlign: 'right',
         }
     })
-);
+);*/
 
 type Props = { 
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void,
 }
 
 export const LineNumberedTextArea: React.FC<Props> = props => {
-    const classes = useStyles();
     const [valueLineNumber, setValueLineNumber] = React.useState<string>("0");
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        onChangeDefault(e);
-        props.onChange?.(e);
-    }
-    const onChangeDefault = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const [textAreaHeight, setTextAreaHeight] = React.useState<number>(3);
+    const [textAreaWidth, setTextAreaWidth] = React.useState<number>(0);
+    const onChange : React.ChangeEventHandler<HTMLTextAreaElement> = e => {
         const ln = countLineNumber(e.target.value) + 3;
         const lns = Array.from(Array(ln).keys()).map(n => n.toString());
         setValueLineNumber(lns.join('\n'));
-    };
+        setTextAreaHeight(ln+3);
+        props.onChange?.(e);
+    }
     const countLineNumber = (text: string) => {
         return text.match(/(\r|\n)/g)?.length || 1;
     }
-
     return (
-        <Box className={ classes.root }>
-            <Grid container spacing={3}>
-                <Grid item xs={1}>
-                    <TextField
-                        multiline
-                        aria-readonly
-                        className={ classes.lineNumber }
+        <div className='bx--grid line-numbered-text-area-root'>
+            <div className='bx--row line-numbered-text-area-row'>
+                <div className='bx--col-sm-1 bx--col-md-1'>
+                    <TextArea
+                        labelText=""
                         value={ valueLineNumber }
-                        inputProps={{ className: classes.lineNumberLine }}
-                    />
-                </Grid>
-                <Grid item xs={11}>
-                    <TextField
-                        multiline
-                        className={ classes.textArea }
-                        value={ props.children }
-                        onChange={ onChange }
-                        inputProps={{ className: classes.line }}
-                    />
-                </Grid>
-            </Grid>
-        </Box>
+                        style={{ height: textAreaHeight.toString() + "em", pointerEvents: "none" }}
+                        className='line-number'>
+                    </TextArea>
+                </div>
+                <div className='bx--col-sm-3 bx--col-md-7'>
+                    <TextArea 
+                        labelText=""
+                        wrap="off"
+                        value={ props.children?.toString() }
+                        style={{height: textAreaHeight.toString() + "em"}}
+                        onChange={ onChange }>
+                    </TextArea>
+                </div>
+            </div>
+        </div>
     );
 
 }

@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "https://jackalltrades-mon.github.io/ohditor/",
   "dependencies": {
+    "@carbon/icons-react": "^10.37.0",
+    "@carbon/type": "^10.33.0",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^5.0.0-beta.4",
     "@testing-library/jest-dom": "^5.14.1",
@@ -13,8 +15,13 @@
     "@types/node": "^12.20.19",
     "@types/react": "^16.14.13",
     "@types/react-dom": "^16.9.14",
+    "carbon": "^0.5.0",
+    "carbon-components": "^10.41.0",
+    "carbon-components-react": "^7.41.0",
+    "carbon-icons": "^7.0.7",
     "gh-pages": "^3.2.3",
     "material-ui": "^0.20.2",
+    "node-sass": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -57,5 +64,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/carbon-components-react": "^7.36.1",
+    "@types/carbon__icons-react": "^10.31.1"
   }
 }

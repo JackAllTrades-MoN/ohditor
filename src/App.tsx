@@ -16,8 +16,8 @@ const dummyScenario = {
       leaf('5', 'page2', '')
     ]),
     node('3', 'chapter 1', '', [
-//      leaf('6', 'page1', ''),
-//      leaf('7', 'page2', '')
+      leaf('6', 'page1', ''),
+      leaf('7', 'page2', '')
     ])
   ])
 };
@@ -28,14 +28,16 @@ function App() {
   return (
     <StoreContext.Provider value={{ state, dispatch }}>
       <div className="App">
-        <Grid container spacing={3}>
-          <Grid item xs={3}>
-            <OutlineView></OutlineView>
-          </Grid>
-          <Grid item xs={9}>
-            <EditorMain></EditorMain>
-          </Grid>
-        </Grid>
+        <div className="bx--grid--full-width">
+          <div className="bx--row">
+            <div className="bx--col-sm-1 bx--col-md-1">
+              <OutlineView></OutlineView>
+            </div>
+            <div className="bx--col-sm-3 bx--col-md-7">
+              <EditorMain></EditorMain>
+            </div>
+          </div>
+        </div>
       </div>
     </StoreContext.Provider>
   );
