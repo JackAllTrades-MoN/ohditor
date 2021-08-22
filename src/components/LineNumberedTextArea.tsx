@@ -29,16 +29,20 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-type Props = { }
+type Props = { 
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
+}
 
 export const LineNumberedTextArea: React.FC<Props> = props => {
     const classes = useStyles();
-    const [value, setValue] = React.useState<string>("default");
     const [valueLineNumber, setValueLineNumber] = React.useState<string>("0");
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        onChangeDefault(e);
+        props.onChange?.(e);
+    }
+    const onChangeDefault = (e: React.ChangeEvent<HTMLInputElement>) => {
         const ln = countLineNumber(e.target.value) + 3;
         const lns = Array.from(Array(ln).keys()).map(n => n.toString());
-        setValue(e.target.value);
         setValueLineNumber(lns.join('\n'));
     };
     const countLineNumber = (text: string) => {
@@ -61,7 +65,7 @@ export const LineNumberedTextArea: React.FC<Props> = props => {
                     <TextField
                         multiline
                         className={ classes.textArea }
-                        value={ value }
+                        value={ props.children }
                         onChange={ onChange }
                         inputProps={{ className: classes.line }}
                     />

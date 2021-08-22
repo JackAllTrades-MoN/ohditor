@@ -1,42 +1,44 @@
 import React from 'react';
+import { useReducer, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
 import { OutlineView } from './components/OutlineView';
 import { EditorMain } from './components/EditorMain';
-import Typography from '@material-ui/core/Typography';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import { reducer, initialState, StoreContext, leaf, node } from './store/store';
+
+const dummyScenario = {
+  fileName: 'Novel Title',
+  tree: node('0', 'root', 'none', [
+    leaf('1', 'meta-info', ''),
+    node('2', 'prologue', 'none', [
+      leaf('4', 'page1', ''),
+      leaf('5', 'page2', '')
+    ]),
+    node('3', 'chapter 1', '', [
+//      leaf('6', 'page1', ''),
+//      leaf('7', 'page2', '')
+    ])
+  ])
+};
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  useEffect(() => { dispatch({ type: 'LOAD_SCENARIO', value: dummyScenario }); }, []);
   return (
-    <div className="App">
-      <Grid container spacing={3}>
-        <Grid item xs={3}>
-          <OutlineView></OutlineView>
+    <StoreContext.Provider value={{ state, dispatch }}>
+      <div className="App">
+        <Grid container spacing={3}>
+          <Grid item xs={3}>
+            <OutlineView></OutlineView>
+          </Grid>
+          <Grid item xs={9}>
+            <EditorMain></EditorMain>
+          </Grid>
         </Grid>
-        <Grid item xs={9}>
-          <EditorMain></EditorMain>
-        </Grid>
-      </Grid>
-    </div>
+      </div>
+    </StoreContext.Provider>
   );
 }
-
-/*
-    <AppBar position="static">
-      <Toolbar>
-          <IconButton >
-              <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div">
-              Ohditor
-          </Typography>
-          </Toolbar>
-      </AppBar>
-*/
 
 export default App;

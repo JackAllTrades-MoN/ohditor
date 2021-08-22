@@ -5,33 +5,23 @@ import Box from '@material-ui/core/Box';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import { LineNumberedTextArea } from './LineNumberedTextArea';
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            height: '95vh',
-            width: '100%',
-            overflow: 'scroll',
-            background: '#282c34',
-        },
-        textField: {
-            width: '100%',
-        },
-        line: {
-            color: 'white'
-        },
-    }));
+import { useContext } from 'react';
+import { StoreContext } from '../store/store';
 
 type Props = { }
 
 export const EditorMain: React.FC<Props> = props => {
-    const classes = useStyles();
-    const [value, setValue] = React.useState<string>("default");
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value);
+    const store = useContext(StoreContext);
+    const updateTextArea = (e: React.ChangeEvent<HTMLInputElement>) => {
+        store.dispatch({ type: 'EDITOR_UPDATE', value: e.target.value });
+    }
     return (
         <Box>
             <EditorHeader></EditorHeader>
-            <LineNumberedTextArea />
+            <LineNumberedTextArea
+                onChange={ updateTextArea } >
+                { store.state.editorContent }
+            </LineNumberedTextArea>
         </Box>
     );
 }

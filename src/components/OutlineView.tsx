@@ -1,71 +1,25 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { useContext } from 'react';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
+import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
+import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Box from '@material-ui/core/Box';
 import AlignHorizontalLeftIcon from '@material-ui/icons/AlignHorizontalLeft';
+import { State, Tree, Leaf, Node, StoreContext } from '../store/store';
 
 type Props = { }
-
-type Tree = Leaf | Node
-
-type Leaf = {
-    kind: "leaf",
-    label: string
-}
-
-type Node = {
-    kind: "node",
-    label: string,
-    children: Tree[]
-}
 
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: 'transparent',
         color: 'white',
-//        height: '100vh',
         '& .MuiAccordion-root': {
             backgroundColor: 'transparent',
             color: 'white',
             boxShadow: 'none',
-            '& .MuiAccordionSummary-root': {
-                display: 'flex',
-                flexDirection: 'row-reverse',
-                paddingLeft: 0,
-                paddingRight: 0,
-                minHeight: '1em',
-                '& .MuiIconButton-root': {
-                    color: 'white',
-                    paddingTop: '0',
-                    paddingBottom: '0',
-                    paddingLeft: '2px',
-                    paddingRight: '2px',
-                    width: '35px',
-                },
-                '& .MuiAccordionSummary-content' :{
-                    marginTop: '0',
-                    marginBottom: '0',
-                    '& .MuiTypography-root': {
-                        textAlign: 'center',
-                    }
-                },
-            },
-            '& .MuiAccordionDetails-root': {
-                display: 'flex',
-                flexDirection: 'column',
-                marginLeft: '1.0em',
-                paddingTop: 0,
-                paddingLeft: 0,
-                paddingRight: 0,
-                borderLeft: 'thin solid white',
-                '& .MuiTypography-root': {
-                    textAlign: 'left',
-                }
-            },
         }
     },
     leaf: {
@@ -78,6 +32,46 @@ const useStyles = makeStyles((theme) => ({
         }
     }
 }));
+
+const AccordionSummary = withStyles({
+    root: {
+        display: 'flex',
+        flexDirection: 'row-reverse',
+        paddingLeft: 0,
+        paddingRight: 0,
+        minHeight: '1em',
+        '& .MuiIconButton-root': {
+            color: 'white',
+            paddingTop: '0',
+            paddingBottom: '0',
+            paddingLeft: '2px',
+            paddingRight: '2px',
+            width: '35px',
+        },
+        '& .MuiAccordionSummary-content' :{
+            marginTop: '0',
+            marginBottom: '0',
+            '& .MuiTypography-root': {
+                textAlign: 'center',
+            }
+        },
+    }
+})(MuiAccordionSummary);
+
+const AccordionDetails = withStyles({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        marginLeft: '1.0em',
+        paddingTop: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
+        borderLeft: 'thin solid white',
+        '& .MuiTypography-root': {
+            textAlign: 'left',
+        }
+    }
+})(MuiAccordionDetails);
 
 const TreeToAccordion = (node: Tree) => {
     const classes = useStyles();
@@ -110,35 +104,12 @@ const TreeToAccordion = (node: Tree) => {
     }
 }
 
-const leaf: (label: string) => Leaf = label => ({
-    kind: "leaf",
-    label: label
-});
-
-const node: (label: string, children: Tree[]) => Node = (label, children) => ({
-    kind: "node",
-    label: label,
-    children: children
-});
-
-const dummyData: Tree =
-    node("title",
-    [
-        leaf("summary"),
-        node("chapter1", [
-            leaf("page1"),
-            leaf("page2")
-        ]),
-        node("chapter2", [
-            leaf("page1"),
-            leaf("page2")
-        ])
-    ]);
-
 export const OutlineView: React.FC<Props> = props => {
-    return (
-        <div>
-            { TreeToAccordion(dummyData) }
-        </div>
-    );
+    const store = useContext(StoreContext);
+    const tree = store.state.scenario?.tree;
+    if (tree === undefined) {
+        return (<div>no data</div>);
+    } else {
+        return (<div>{ TreeToAccordion(tree) }</div>);
+    }
 }
