@@ -12,4 +12,10 @@
             border-left: thin solid white;
         }
     }
+    .bx--list__item {
+        color: white;
+    }
+    .bx--list__item:before {
+        content: none;
+    }
 }

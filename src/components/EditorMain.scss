@@ -1,0 +1,7 @@
+.bx--breadcrumb-item {
+    color: white;
+    &:after {
+        content: ">";
+        color: white;
+    }
+}

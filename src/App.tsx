@@ -28,10 +28,10 @@ function App() {
       <div className="App">
         <div className="bx--grid bx--grid--full-width bx--grid--condensed">
           <div className="bx--row">
-            <div className="bx--col-sm-1 bx--col-md-1">
+            <div className="bx--col bx--col-sm-1 bx--col-md-1">
               <OutlineView></OutlineView>
             </div>
-            <div className="bx--col-sm-3 bx--col-md-7">
+            <div className="bx--col bx--col-sm-3 bx--col-md-7">
               <EditorMain></EditorMain>
             </div>
           </div>

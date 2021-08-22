@@ -3,6 +3,7 @@ import { Breadcrumb, BreadcrumbItem } from 'carbon-components-react';
 import { LineNumberedTextArea } from './LineNumberedTextArea';
 import { Tree, StoreContext } from '../store/store';
 import { safeUnreachable } from '../error/developing';
+import './EditorMain.scss';
 
 type Props = { }
 
@@ -30,11 +31,11 @@ type HeaderProps = { }
 
 const EditorHeader: React.FC<HeaderProps> = props => {
     const store = useContext(StoreContext);
-    const path = pathTo(store.state.opened)(store.state.scenario?.tree);
+    const path = 
+        pathTo(store.state.opened)(store.state.scenario?.tree) || [""];
     return (
-        <Breadcrumb noTrailingSlash>
-            <BreadcrumbItem href="/">{ path?.toString() || "/" }</BreadcrumbItem>
-            <BreadcrumbItem isCurrentPage href="/">Fuga</BreadcrumbItem>
+        <Breadcrumb>
+            { React.Children.map(path, name => <BreadcrumbItem>{name}</BreadcrumbItem>) }
         </Breadcrumb>
     );
 }
