@@ -3,7 +3,9 @@ import logo from './logo.svg';
 import './App.css';
 import { OutlineView } from './components/OutlineView';
 import { EditorMain } from './components/EditorMain';
+import { OhHeader } from './components/Header';
 import { reducer, initialState, StoreContext, leaf, node } from './store/store';
+
 
 const dummyScenario = {
   fileName: 'Novel Title',
@@ -26,16 +28,19 @@ function App() {
   return (
     <StoreContext.Provider value={{ state, dispatch }}>
       <div className="App">
-        <div className="bx--grid bx--grid--full-width bx--grid--condensed">
-          <div className="bx--row">
-            <div className="bx--col-lg-1 bx--col-sm-1 bx--col-md-1">
-              <OutlineView></OutlineView>
-            </div>
-            <div className="bx--col-lg-15 bx--col-sm-3 bx--col-md-7">
-              <EditorMain></EditorMain>
+        { /*  <OhHeader /> */ }
+        <main>
+          <div className="bx--grid bx--grid--full-width bx--grid--condensed">
+            <div className="bx--row">
+              <div className="bx--col-lg-1 bx--col-sm-1 bx--col-md-1">
+                <OutlineView></OutlineView>
+              </div>
+              <div className="bx--col-lg-15 bx--col-sm-3 bx--col-md-7">
+                <EditorMain></EditorMain>
+              </div>
             </div>
           </div>
-        </div>
+        </main>
       </div>
     </StoreContext.Provider>
   );
