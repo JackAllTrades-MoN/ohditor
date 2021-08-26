@@ -23,7 +23,7 @@ export const LineNumberedTextArea: React.FC<Props> = props => {
     return (
         <div className='bx--grid line-numbered-text-area-root'>
             <div className='bx--row line-numbered-text-area-row'>
-                <div className='bx--col bx--col-sm-1 bx--col-md-1'>
+                <div className='bx--col bx--col-sm-1 bx--col-md-1 bx--col-lg-1'>
                     <TextArea
                         labelText=""
                         value={ valueLineNumber }
@@ -31,7 +31,7 @@ export const LineNumberedTextArea: React.FC<Props> = props => {
                         className='line-number'>
                     </TextArea>
                 </div>
-                <div className='bx--col bx--col-sm-3 bx--col-md-7'>
+                <div className='bx--col bx--col-sm-3 bx--col-md-7 bx--col-lg-15'>
                     <TextArea 
                         labelText=""
                         wrap="off"

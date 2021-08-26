@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Breadcrumb, BreadcrumbItem } from 'carbon-components-react';
+import { Breadcrumb, BreadcrumbItem, Tabs, Tab } from 'carbon-components-react';
 import { LineNumberedTextArea } from './LineNumberedTextArea';
 import { Tree, StoreContext } from '../store/store';
 import { safeUnreachable } from '../error/developing';
@@ -13,17 +13,25 @@ export const EditorMain: React.FC<Props> = props => {
         store.dispatch({ type: 'EDITOR_UPDATE', value: e.target.value });
     }
     return (
-        <div className="bx--grid">
-            <div className="bx--grid-row">
-                <EditorHeader></EditorHeader>
-            </div>
-            <div className="bx--grid-row">
-                <LineNumberedTextArea
-                    onChange={ updateTextArea } >
-                    { store.state.editorContent }
-                </LineNumberedTextArea>
-            </div>
-        </div>
+        <Tabs>
+            <Tab
+                href="#"
+                id="tab-1"
+                label="tab1">
+                <div className="bx--grid editor-main-root">
+                    <div className="bx--grid-row">
+                        <EditorHeader></EditorHeader>
+                    </div>
+                    <div className="bx--grid-row">
+                        <LineNumberedTextArea
+                            onChange={ updateTextArea } >
+                            { store.state.editorContent }
+                        </LineNumberedTextArea>
+                    </div>
+                </div>
+            </Tab>
+            <Tab label="hoge"></Tab>
+        </Tabs>
     );
 }
 
@@ -34,7 +42,7 @@ const EditorHeader: React.FC<HeaderProps> = props => {
     const path = 
         pathTo(store.state.opened)(store.state.scenario?.tree) || [""];
     return (
-        <Breadcrumb>
+        <Breadcrumb className="editor-header">
             { React.Children.map(path, name => <BreadcrumbItem>{name}</BreadcrumbItem>) }
         </Breadcrumb>
     );

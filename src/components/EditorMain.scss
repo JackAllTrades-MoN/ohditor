@@ -5,3 +5,40 @@
         color: white;
     }
 }
+*[role="tabpanel"] {
+    padding: 0;
+    .bx--grid {
+//        padding: 0;
+    }
+}
+
+.editor-main-root {
+    padding: 0;
+}
+
+.editor-header {
+    padding:1px;
+    box-shadow: 0px 2px 1px 0px rgba(0,0,0,0.5);
+    background-color: rgb(37, 36, 36);
+}
+
+.bx--tabs--scrollable__nav-link {
+    color: white;
+}
+
+.bx--tabs--scrollable__nav-link:selected {
+    color: white;
+}
+
+.bx--tabs--scrollable__nav-item {
+    background-color:rgb(61, 61, 61);
+    border-style: none;
+    button {
+        color: white;
+    }
+}
+
+.bx--tabs__nav-item--selected {
+    background-color: rgb(37, 36, 36);
+    border-style: none;
+}
