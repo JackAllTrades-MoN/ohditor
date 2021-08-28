@@ -29,6 +29,7 @@ export const EditorMain: React.FC<Props> = props => {
                     </div>
                     <div className="bx--grid-row">
                         <LineNumberedTextArea
+                            className="editor-main-line-numbered-textarea"
                             onChange={ updateTextArea } >
                             { buffer.contents }
                         </LineNumberedTextArea>

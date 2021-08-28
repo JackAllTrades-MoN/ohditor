@@ -1,19 +1,16 @@
 .bx--breadcrumb-item {
     color: white;
     &:after {
-//        content: ">";
         color: white;
     }
 }
 *[role="tabpanel"] {
     padding: 0;
-    .bx--grid {
-//        padding: 0;
-    }
 }
 
 .editor-main-root {
     padding: 0;
+    height: 100%;
 }
 
 .editor-header {
@@ -41,4 +38,14 @@
 .bx--tabs__nav-item--selected {
     background-color: rgb(37, 36, 36);
     border-style: none;
+}
+
+.editor-main-line-numbered-textarea {
+    height: 100%;
+    textarea {
+       min-height: 80vh;
+    }
+    .line-numbered-text-area-row {
+        height: 80vh;
+    }
 }

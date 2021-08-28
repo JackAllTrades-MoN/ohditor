@@ -4,6 +4,7 @@ import { TextArea } from 'carbon-components-react';
 import './LineNumberedTextArea.scss';
 
 type Props = { 
+    className?: string,
     onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void,
 }
 
@@ -21,6 +22,7 @@ export const LineNumberedTextArea: React.FC<Props> = props => {
         return text.match(/(\r|\n)/g)?.length || 1;
     }
     return (
+        <div className={ props.className ?? '' }>
         <div className='bx--grid line-numbered-text-area-root'>
             <div className='bx--row line-numbered-text-area-row'>
                 <div className='bx--col bx--col-sm-1 bx--col-md-1 bx--col-lg-1'>
@@ -41,6 +43,7 @@ export const LineNumberedTextArea: React.FC<Props> = props => {
                     </TextArea>
                 </div>
             </div>
+        </div>
         </div>
     );
 

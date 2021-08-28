@@ -1,5 +1,6 @@
 body {
   overscroll-behavior: none;
+  height: 100vh;
 }
 
 .App {
@@ -28,6 +29,10 @@ body {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.bx--header {
+  position: relative;
 }
 
 .App-link {

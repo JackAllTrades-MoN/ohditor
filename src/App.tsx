@@ -6,6 +6,7 @@ import { EditorMain } from './components/EditorMain';
 //import { OhHeader } from './components/Header';
 import { reducer, StoreContext } from './store/store';
 import { initialModel, node, leaf } from './store/model';
+import { Header, HeaderContainer, SideNav, SideNavItems, SkipToContent, HeaderMenuButton, HeaderName, HeaderNavigation, HeaderMenuItem } from 'carbon-components-react';
 
 const dummyScenario = {
   fileName: 'Novel Title',
@@ -28,15 +29,32 @@ function App() {
   return (
     <StoreContext.Provider value={{ state, dispatch }}>
       <div className="App">
-        { /*  <OhHeader /> */ }
+        <HeaderContainer
+          render={({ isSideNavExpanded, onClickSideNavExpand}) => (
+            <Header aria-label="ohditor">
+              <SkipToContent/>
+              <HeaderMenuButton
+                aria-label="Open menu"
+                onClick={onClickSideNavExpand}
+                isActive={isSideNavExpanded}
+              />
+              <HeaderName href="#" prefix="ohditor">
+                [filename]
+              </HeaderName>
+              <SideNav
+                expanded={isSideNavExpanded}
+                aria-label="Side navigation">
+                  <OutlineView></OutlineView>
+              </SideNav>
+            </Header>
+          )} />
         <main>
-          <div className="bx--grid bx--grid--full-width bx--grid--condensed">
-            <div className="bx--row">
-              <div className="bx--col-lg-1 bx--col-sm-1 bx--col-md-1">
-                <OutlineView></OutlineView>
-              </div>
-              <div className="bx--col-lg-15 bx--col-sm-3 bx--col-md-7">
-                <EditorMain></EditorMain>
+          <div>
+            <div className="bx--grid">
+              <div className="bx--row">
+                <div className="bx--col bx--offset-lg-4">
+                  <EditorMain></EditorMain>
+                </div>
               </div>
             </div>
           </div>
