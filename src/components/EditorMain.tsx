@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { Breadcrumb, BreadcrumbItem, Tabs, Tab } from 'carbon-components-react';
 import { LineNumberedTextArea } from './LineNumberedTextArea';
-import { Tree, StoreContext } from '../store/store';
+import { StoreContext } from '../store/store';
+import { Buffer, stringOfModel, Tree } from '../store/model';
 import { safeUnreachable } from '../error/developing';
 import './EditorMain.scss';
 
@@ -11,39 +12,47 @@ export const EditorMain: React.FC<Props> = props => {
     const store = useContext(StoreContext);
     const updateTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         store.dispatch({ type: 'EDITOR_UPDATE', value: e.target.value });
-    }
-    return (
-        <Tabs>
+    };
+    const openResource : (buffer: Buffer) => React.MouseEventHandler<HTMLLIElement> = buffer => e => {
+        store.dispatch({ type: 'OPEN_RESOURCE', value: buffer.resourceId });
+    };
+    const tabOfBuffer = (buffer: Buffer) => {
+        console.log("rendered buffer");
+        return (
             <Tab
-                href="#"
-                id="tab-1"
-                label="tab1">
-                <div className="bx--grid editor-main-root">
+                id={`tab-${ buffer.resourceId }`}
+                label={buffer.label}
+                onClick={ openResource(buffer) } >
+                <div className={`bx--grid editor-main-root tab-content-${buffer.label}`}>
                     <div className="bx--grid-row">
-                        <EditorHeader></EditorHeader>
+                        <EditorHeader buffer={ buffer }></EditorHeader>
                     </div>
                     <div className="bx--grid-row">
                         <LineNumberedTextArea
                             onChange={ updateTextArea } >
-                            { store.state.editorContent }
+                            { buffer.contents }
                         </LineNumberedTextArea>
                     </div>
                 </div>
-            </Tab>
-            <Tab label="hoge"></Tab>
+            </Tab>);
+    }
+    console.log(`render editor main, state: ${stringOfModel(store.state)}`);
+    return (
+        <div>
+        <Tabs>
+            { store.state.buffer.map(tabOfBuffer) }
         </Tabs>
+        </div>
     );
 }
 
-type HeaderProps = { }
+type HeaderProps = { buffer: Buffer }
 
 const EditorHeader: React.FC<HeaderProps> = props => {
-    const store = useContext(StoreContext);
-    const path = 
-        pathTo(store.state.opened)(store.state.scenario?.tree) || [""];
+    const path = props.buffer.path;
     return (
         <Breadcrumb className="editor-header">
-            { React.Children.map(path, name => <BreadcrumbItem>{name}</BreadcrumbItem>) }
+            { React.Children.map(path.reverse(), name => <BreadcrumbItem>{name}</BreadcrumbItem>) }
         </Breadcrumb>
     );
 }

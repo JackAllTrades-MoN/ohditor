@@ -3,17 +3,17 @@ import logo from './logo.svg';
 import './App.css';
 import { OutlineView } from './components/OutlineView';
 import { EditorMain } from './components/EditorMain';
-import { OhHeader } from './components/Header';
-import { reducer, initialState, StoreContext, leaf, node } from './store/store';
-
+//import { OhHeader } from './components/Header';
+import { reducer, StoreContext } from './store/store';
+import { initialModel, node, leaf } from './store/model';
 
 const dummyScenario = {
   fileName: 'Novel Title',
   tree: node('0', 'root', 'none', [
-    leaf('1', 'meta-info', ''),
+    leaf('1', 'meta-info', 'a'),
     node('2', 'prologue', 'none', [
-      leaf('4', 'page1', ''),
-      leaf('5', 'page2', '')
+      leaf('4', 'page1', 'b'),
+      leaf('5', 'page2', 'c')
     ]),
     node('3', 'chapter 1', '', [
       leaf('6', 'page1', ''),
@@ -23,7 +23,7 @@ const dummyScenario = {
 };
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialModel);
   useEffect(() => { dispatch({ type: 'LOAD_SCENARIO', value: dummyScenario }); }, []);
   return (
     <StoreContext.Provider value={{ state, dispatch }}>
